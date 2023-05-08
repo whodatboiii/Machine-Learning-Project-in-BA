@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>difford_scrape</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>difford_scrape_PROJECTUPDATE</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -16045,7 +16045,7 @@ To prevent this, we created this temporary, ugly, solution.</p>
 
 </div>
 
-</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -16111,154 +16111,19 @@ To prevent this, we created this temporary, ugly, solution.</p>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Calories&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Calories&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]))</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Calories&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Calories&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
-
+<span class="c1">#Transforms the alcohol percentage to float</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Alcohol percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Alcohol percentage&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 
-<span class="c1"># print the new dataframe</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="c1"># Find the columns that start with &#39;METHOD_&#39;</span>
+<span class="n">method_columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Method_&#39;</span><span class="p">)]</span>
+
+<span class="c1"># Convert boolean values to 1s and 0s</span>
+<span class="n">df</span><span class="p">[</span><span class="n">method_columns</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">method_columns</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 </pre></div>
 
      </div>
 </div>
 </div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>                       Name                Glass  \
-3                     Abbey          Coupe glass   
-7             Absinthe Sour  Old-fashioned glass   
-10      Absolutely Fabulous          Flute glass   
-14    Ace Of Clubs Daiquiri          Coupe glass   
-15            Achilles Heel        Collins glass   
-...                     ...                  ...   
-6537     Honey Cosmopolitan          Coupe glass   
-6538              The Frank          Coupe glass   
-6566            Green Ghost    Nick &amp; Nora glass   
-6567      It&#39;s Always Sunny        Collins glass   
-6568           Mr. Bali Hai  Tiki mug or collins   
-
-                                            How to make  \
-3     SHAKE all ingredients with ice and fine strain...   
-7     SHAKE all ingredients with ice and strain back...   
-10    SHAKE first two ingredients with ice and strai...   
-14    SHAKE all ingredients with ice and fine strain...   
-15    SHAKE all ingredients with ice and strain into...   
-...                                                 ...   
-6537  SHAKE all ingredients with ice and strain into...   
-6538  STIR all ingredients with ice and strain into ...   
-6566  SHAKE all ingredients with ice and fine strain...   
-6567  SHAKE all ingredients with ice and strain into...   
-6568  SHAKE all ingredients with ice and strain into...   
-
-                                               Contents  \
-3     [&#39;Rutte Dry Gin&#39;, &#39;Lillet Blanc (or other arom...   
-7     [&#39;La Fée Parisienne absinthe&#39;, &#34;Sugar syrup &#39;r...   
-10    [&#39;Ketel One Vodka&#39;, &#39;Cranberry juice (sweetene...   
-14    [&#39;Gold rum (1-3 years old mellow light)&#39;, &#39;Dut...   
-15    [&#39;Bison grass vodka&#39;, &#39;Giffard Framboise de Ro...   
-...                                                 ...   
-6537  [&#39;Grapefruit flavoured vodka&#39;, &#39;Cranberry juic...   
-6538  [&#39;Del Maguey Vida Clásico mezcal&#39;, &#39;Patrón Sil...   
-6566  [&#39;Rutte Dry Gin&#39;, &#39;Green Chartreuse liqueur&#39;, ...   
-6567  [&#39;Ketel One Vodka&#39;, &#39;Americano Bianco&#39;, &#39;Orang...   
-6568  [&#39;Jamaican aged blended rum&#39;, &#39;Light white rum...   
-
-                                                 Ratios  Gentle / Boozy  \
-3      [&#39;1 1⁄2 shot&#39;, &#39;3⁄4 shot&#39;, &#39;3⁄4 shot&#39;, &#39;2 dash&#39;]             7.0   
-7     [&#39;5⁄6 shot&#39;, &#39;1⁄3 shot&#39;, &#39;1⁄2 shot&#39;, &#39;1⁄2 shot...             7.0   
-10               [&#39;1 shot&#39;, &#39;1 1⁄2 shot&#39;, &#39;1 1⁄2 shot&#39;]             6.0   
-14       [&#39;2 shot&#39;, &#39;1⁄2 shot&#39;, &#39;1⁄2 shot&#39;, &#39;1⁄6 shot&#39;]             7.0   
-15    [&#39;2 shot&#39;, &#39;1⁄4 shot&#39;, &#39;1⁄4 shot&#39;, &#39;2 shot&#39;, &#39;...             6.0   
-...                                                 ...             ...   
-6537  [&#39;1 2⁄3 shot&#39;, &#39;1 1⁄3 shot&#39;, &#39;1⁄3 shot&#39;, &#39;1⁄6 ...             7.0   
-6538  [&#39;1⁄2 shot&#39;, &#39;1⁄2 shot&#39;, &#39;1⁄2 shot&#39;, &#39;1⁄2 shot...             8.0   
-6566  [&#39;1 1⁄3 shot&#39;, &#39;1⁄3 shot&#39;, &#39;1⁄3 shot&#39;, &#39;1⁄6 sh...             8.0   
-6567  [&#39;1 2⁄3 shot&#39;, &#39;2⁄3 shot&#39;, &#39;1 shot&#39;, &#39;1 shot&#39;,...             5.0   
-6568  [&#39;1 1⁄2 shot&#39;, &#39;1 shot&#39;, &#39;3⁄4 shot&#39;, &#39;1 1⁄2 sh...             8.0   
-
-      Sweet / Dry Sour  Calories  Alcohol percentage  Popularity  ...  \
-3                  7.0       133               20.97        27.0  ...   
-7                  6.0       142               21.20        16.0  ...   
-10                 6.0       117               11.69         9.0  ...   
-14                 6.0       190               23.43        27.0  ...   
-15                 6.0       212               14.44        13.0  ...   
-...                ...       ...                 ...         ...  ...   
-6537               7.0       159               14.03         2.0  ...   
-6538               7.0       145               22.60        30.0  ...   
-6566               7.0       140               28.16        25.0  ...   
-6567               6.0       201               11.37         6.0  ...   
-6568               5.0       275               15.64        34.0  ...   
-
-     Glass_Nick &amp; Nora glass  Glass_Old-fashioned glass  Glass_Rocks glass  \
-3                          0                          0                  0   
-7                          0                          1                  0   
-10                         0                          0                  0   
-14                         0                          0                  0   
-15                         0                          0                  0   
-...                      ...                        ...                ...   
-6537                       0                          0                  0   
-6538                       0                          0                  0   
-6566                       1                          0                  0   
-6567                       0                          0                  0   
-6568                       0                          0                  0   
-
-      Glass_Shot and Beer glass  Glass_Shot glass  Glass_Sling glass  \
-3                             0                 0                  0   
-7                             0                 0                  0   
-10                            0                 0                  0   
-14                            0                 0                  0   
-15                            0                 0                  0   
-...                         ...               ...                ...   
-6537                          0                 0                  0   
-6538                          0                 0                  0   
-6566                          0                 0                  0   
-6567                          0                 0                  0   
-6568                          0                 0                  0   
-
-      Glass_Snifter glass  Glass_Tiki mug or collins  Glass_Toddy glass  \
-3                       0                          0                  0   
-7                       0                          0                  0   
-10                      0                          0                  0   
-14                      0                          0                  0   
-15                      0                          0                  0   
-...                   ...                        ...                ...   
-6537                    0                          0                  0   
-6538                    0                          0                  0   
-6566                    0                          0                  0   
-6567                    0                          0                  0   
-6568                    0                          1                  0   
-
-      Glass_Wine glass  
-3                    0  
-7                    0  
-10                   0  
-14                   0  
-15                   0  
-...                ...  
-6537                 0  
-6538                 0  
-6566                 0  
-6567                 0  
-6568                 0  
-
-[1207 rows x 802 columns]
-</pre>
-</div>
-</div>
-
-</div>
-
 </div>
 
 </div><div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -16528,11 +16393,11 @@ To prevent this, we created this temporary, ugly, solution.</p>
       <th>Calories</th>
       <th>Alcohol percentage</th>
       <th>Popularity</th>
-      <th>Category_4th July &amp; Independence Day</th>
-      <th>Category_After dinner/digestif</th>
-      <th>Category_Anytime</th>
-      <th>Category_Aperitivo/aperitif</th>
-      <th>Category_Autumn/fall</th>
+      <th>Method_(BEWARE</th>
+      <th>Method_POURING</th>
+      <th>Method_STIR</th>
+      <th>Method_BLEND</th>
+      <th>Method_MUDDLE</th>
       <th>...</th>
       <th>Glass_Nick &amp; Nora glass</th>
       <th>Glass_Old-fashioned glass</th>
@@ -16579,10 +16444,10 @@ To prevent this, we created this temporary, ugly, solution.</p>
       <td>21.352345</td>
       <td>26.459818</td>
       <td>0.000829</td>
-      <td>0.032312</td>
-      <td>0.002486</td>
-      <td>0.054681</td>
-      <td>0.003314</td>
+      <td>0.000829</td>
+      <td>0.389395</td>
+      <td>0.009114</td>
+      <td>0.000829</td>
       <td>...</td>
       <td>0.081193</td>
       <td>0.183927</td>
@@ -16603,10 +16468,10 @@ To prevent this, we created this temporary, ugly, solution.</p>
       <td>6.403123</td>
       <td>38.817661</td>
       <td>0.028784</td>
-      <td>0.176899</td>
-      <td>0.049813</td>
-      <td>0.227451</td>
-      <td>0.057496</td>
+      <td>0.028784</td>
+      <td>0.487815</td>
+      <td>0.095068</td>
+      <td>0.028784</td>
       <td>...</td>
       <td>0.273245</td>
       <td>0.387585</td>
@@ -16700,7 +16565,7 @@ To prevent this, we created this temporary, ugly, solution.</p>
       <td>30.000000</td>
       <td>0.000000</td>
       <td>0.000000</td>
-      <td>0.000000</td>
+      <td>1.000000</td>
       <td>0.000000</td>
       <td>0.000000</td>
       <td>...</td>
@@ -16741,7 +16606,7 @@ To prevent this, we created this temporary, ugly, solution.</p>
     </tr>
   </tbody>
 </table>
-<p>8 rows × 70 columns</p>
+<p>8 rows × 96 columns</p>
 </div>
 </div>
 
@@ -17553,7 +17418,7 @@ Name: Sweet / Dry Sour, dtype: float64
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Contents&#39;</span><span class="p">,</span> <span class="s1">&#39;Ratios&#39;</span><span class="p">,</span> <span class="s1">&#39;How to make&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Contents&#39;</span><span class="p">,</span> <span class="s1">&#39;Ratios&#39;</span><span class="p">,</span> <span class="s1">&#39;How to make&#39;</span><span class="p">,</span> <span class="s1">&#39;Category&#39;</span><span class="p">,</span> <span class="s1">&#39;Method_(BEWARE&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;out_fin_r4ml.csv&#39;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -17602,9 +17467,9 @@ Name: Sweet / Dry Sour, dtype: float64
       <th>Calories</th>
       <th>Alcohol percentage</th>
       <th>Popularity</th>
-      <th>Category</th>
-      <th>Method_(BEWARE</th>
       <th>Method_POURING</th>
+      <th>Method_STIR</th>
+      <th>Method_BLEND</th>
       <th>...</th>
       <th>Glass_Nick &amp; Nora glass</th>
       <th>Glass_Old-fashioned glass</th>
@@ -17628,9 +17493,9 @@ Name: Sweet / Dry Sour, dtype: float64
       <td>133</td>
       <td>20.97</td>
       <td>27.0</td>
-      <td>Classic/vintage</td>
-      <td>False</td>
-      <td>False</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>...</td>
       <td>0</td>
       <td>0</td>
@@ -17652,9 +17517,9 @@ Name: Sweet / Dry Sour, dtype: float64
       <td>142</td>
       <td>21.20</td>
       <td>16.0</td>
-      <td>Classic/vintage</td>
-      <td>False</td>
-      <td>False</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>...</td>
       <td>0</td>
       <td>1</td>
@@ -17676,9 +17541,9 @@ Name: Sweet / Dry Sour, dtype: float64
       <td>117</td>
       <td>11.69</td>
       <td>9.0</td>
-      <td>Champagne</td>
-      <td>False</td>
-      <td>False</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>...</td>
       <td>0</td>
       <td>0</td>
@@ -17700,9 +17565,9 @@ Name: Sweet / Dry Sour, dtype: float64
       <td>190</td>
       <td>23.43</td>
       <td>27.0</td>
-      <td>Classic/vintage</td>
-      <td>False</td>
-      <td>False</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>...</td>
       <td>0</td>
       <td>0</td>
@@ -17724,9 +17589,9 @@ Name: Sweet / Dry Sour, dtype: float64
       <td>212</td>
       <td>14.44</td>
       <td>13.0</td>
-      <td>Long drinks &amp; highballs</td>
-      <td>False</td>
-      <td>False</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>...</td>
       <td>0</td>
       <td>0</td>
@@ -17741,7 +17606,7 @@ Name: Sweet / Dry Sour, dtype: float64
     </tr>
   </tbody>
 </table>
-<p>5 rows × 799 columns</p>
+<p>5 rows × 797 columns</p>
 </div>
 </div>
 
@@ -17759,6 +17624,18 @@ Name: Sweet / Dry Sour, dtype: float64
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="Supervised-learning">Supervised learning<a class="anchor-link" href="#Supervised-learning">&#182;</a></h1>
+</div>
+</div>
+</div>
+</div>
+<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Coming soon :)</p>
+
 </div>
 </div>
 </div>

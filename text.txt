@@ -69,4 +69,23 @@ ______________________________
 
 Cleaning:
 
-The first part of this process is to combine the 
+The goal of the cleaning process is to get a dataframe encoded with values ranging from 0 to 1 when applicable (i.e. one-hot encoded) except for the name of the cocktail. This will definitely help us for the modeling part because it will help us determine easily what the most important variables are, and many more. One-hot encoding is a common preprocessing step used in machine learning and data science. The process involves converting categorical variables into a form that could be provided to machine learning algorithms to improve their performance.
+
+Why One-Hot Encoding?
+
+In our cocktails context, suppose we have a categorical variable like 'Method,' and it has three categories: 'Shaken,' 'Stirred,' and 'Blended.' Now, one way to represent these methods is by assigning each category a numerical value, say 1 for 'Shaken,' 2 for 'Stirred,' and 3 for 'Blended.' However, this representation implies an ordered relationship between the categories. The machine learning model may misinterpret these numbers as having a rank or order (i.e., 'Blended' > 'Stirred' > 'Shaken'), which is incorrect and can negatively impact the model's performance.
+
+This is where one-hot encoding becomes useful. It allows us to create binary, or "dummy", variables for each category of a categorical variable. In our example, one-hot encoding would create three new variables: 'Method_Shaken,' 'Method_Stirred,' and 'Method_Blended.' For a 'Shaken' cocktail, 'Method_Shaken' would be 1, while 'Method_Stirred' and 'Method_Blended' would be 0.
+
+One-Hot Encoding in Our Project:
+
+In our project, one-hot encoding will be applied to all categorical variables. For example, each unique ingredient will be transformed into a separate feature that shows whether the cocktail contains that ingredient (1) or not (0). Similarly, for methods or other categorical features, each category will become a separate binary feature.
+
+The one-hot encoding process not only helps in handling categorical data but also aids in maintaining the comprehensibility of the model. For instance, after one-hot encoding, the importance of each variable (ingredient or method) in determining the cocktail can be more easily interpreted. An ingredient or method that frequently appears with certain kinds of cocktails may be given more importance by the model, and thus have a higher coefficient in a linear model or higher feature importance in tree-based models.
+
+Moreover, one-hot encoding will lead to a sparse matrix (i.e., a matrix with many zeros), making the computations faster, especially when we use algorithms that can handle sparse data well.
+
+It's important to note, though, that one-hot encoding can considerably increase the dimensionality of our data (increase the number of features). Hence, it's always crucial to perform feature selection or dimensionality reduction post-encoding when necessary, to ensure our model is not overly complex and to prevent overfitting.
+
+In conclusion, one-hot encoding is an essential step in our data cleaning process, providing a way to transform our categorical data into a numerical form suitable for machine learning algorithms and making our task of cocktail classification and clustering easier and more effective.
+

@@ -1,0 +1,72 @@
+Introduction:
+
+Cocktails are a vast and intriguing realm of flavors, ingredients, and techniques. Yet, for a beginner or someone unfamiliar with mixology, it can be quite overwhelming. You might find yourself puzzled, standing before your liquor cabinet, wondering what you can create with the ingredients available. You know what flavors you like, but what's the right recipe?
+
+Our project aims to solve this conundrum. We intend to develop a classification algorithm, a sort of a digital mixologist, that can help you create exciting new cocktails with the ingredients you already have at home. Our primary resource for this project is the renowned Difford's Guide to Cocktails, often referred to as the ultimate compendium for cocktail enthusiasts.
+
+The Difford's Guide is packed with an impressive array of cocktail recipes, complete with intricate ingredient details and step-by-step preparation instructions. We've set out to build a comprehensive database by scraping data from this guide, which will be the foundational resource for our cocktail suggestion algorithm.
+
+The journey, however, doesn't end with gathering data. Extensive data cleaning and exploratory data analysis (EDA) follow, which are crucial steps to ensure that our algorithm operates with optimal accuracy. Every recipe in our database will be carefully scrutinized to identify and rectify any errors, inconsistencies, or issues that could compromise the algorithm's efficiency.
+
+But let's break down what these processes mean:
+
+Data Scraping: This process involves extracting information from the Difford's Guide using automated methods. It's a bit like a bot carefully reading through the guide and noting down all the relevant details about each cocktail. It's the first step to creating our cocktail recipe database.
+
+Data Cleaning: Not all data we scrape will be useful or in a format we can work with. Some ingredients might be spelled differently in different recipes, some might have missing details, and some might be outliers that don't contribute to our goals. The data cleaning process sifts through the raw data, corrects errors, and makes sure everything is uniform and ready for analysis.
+
+Exploratory Data Analysis (EDA): This step involves delving deep into our cleaned data. It's about uncovering underlying structures, extracting important variables, and detecting anomalies and outliers. Through EDA, we aim to understand the data's underlying structure and the relationships between different variables, such as the type of ingredients used, the classification, as well as the resulting flavor profiles to determine whether or not the model will be able to correctly predict similar cocktails as the ones we like.
+
+Our project holds exciting implications for the cocktail-making landscape. By simplifying the process of suggesting new drinks, we hope to ignite a new spark of creativity and experimentation in mixology. Our classification algorithm isn't just a tool for experienced bartenders. It's designed for everyone. Even if you're an amateur or a newcomer, the algorithm will help you discover novel and delectable cocktails that align with your taste preferences.
+
+So, whether you're dabbling in mixology for the first time or you're a seasoned pro, our project aims to take your cocktail-making game to the next level. All you need are your ingredients and a willingness to explore!
+
+______________________________
+
+Scraping:
+
+Because the Difford's Guide does not allow direct access to their API or their databases, our only way of getting the data was up to a complicated start. We knew this term called "scraping", but we had no idea how it worked or even how to do it, so our research for resources began.
+
+After a little digging, we found that we could transform the name part of the base URL of each cocktail (`diffordsguide.com/cocktails/recipe/1/abacaxi-ricaco`) by index.html (`diffordsguide.com/cocktails/recipe/1/index.html`), which rendered the job very easy  because we can now iterate through the whole 7000 cocktails without any complex problem solving.
+
+Because the Guide has a lot of information on every cocktail, we wanted to retain as much of the information as possible. Here is the data description of the basic dataframe:
+
+1. Name: Name of the cocktail. This is self-explanatory for it is different for every cocktail.
+
+2. Glass: Type of glass typically used when serving this cocktail. This ranges from the shot glass to the old-fashioned. There are 44 different values to choose from.
+
+3. Garnish: How to finish the cocktail, for example "Orange zest twist". Different for every cocktail, and we decided not to include this in the final dataframe.
+
+4. How to make: Main way to execute the cocktail. There are 26 different values after cleaning.
+
+5. Contents: Ingredients that go in the cocktail. This ranges from alcohols to liqueurs, passing by the syrups. There are 5262 differents values, which is easily explainable because each cocktail is uniquely made.
+
+6. Ratios: Ratio of each ingredient in every cocktail. This one will be linked to the `Contents` column to give us 1 column.
+
+7. Gentle / Boozy: One of the most interesting part of the Difford's Guide is that almost each cocktail was tasted personnally by Mr. Difford himself, and he graded each cocktail on a Gentle / Boozy, and Sweet / Sour scale. On the Gentle / Boozy scale, a Lower value means that the cocktail is Gentle, a pretty light cocktail. On the contrary, a Higher value means that the cocktail is Boozy and that the cocktail is pretty strong.
+
+8. Sweet / Dry Sour: This one behaves the same way as the last one: a Lower score here means that the cocktail is Sweet, and a Higher score means that the cocktail is Dry or Sour.
+
+9. Calories: The number of calories of each cocktail computed by the Guide.
+
+10. Calories2: This one is a bit tricky to explain without going much in the details, we will explain its use a little later.
+
+11. Alcohol percentage: The percentage of alcohol for each cocktail computed by the Guide.
+
+12. Alcohol percentage2: This one is a bit tricky to explain without going much in the details, we will explain its use a little later.
+
+13. Popularity: The number of user-generated comments under each cocktail.
+
+14. Category: The category of the cocktail. There are 47 unique values here.
+
+15. URL: The static URL of the cocktail. Will be dropped later.
+
+
+The method to scrape the site was pretty straight-forward, but pretty hard at the same time. We basically used CSS classes, more precisely the exact CSS selectors, manually for every every column of the dataframe. This reduced the prettiness of the code because we could not use "direct" classes (i.e. "Alcohol Percetage", "Calories", etc...) to scrape the to counter the scraping the process.
+
+This is the direct reason of the existence of the second columns for Calories and Alcohol Percentage; for some of the older or most popular cocktails, the Guide implemented a little nickname in the form a "AKA", right before the columns of interest. While being useful to know the cute nickname of a cocktail, there is now an offset in the CSS classes that needs to be taken care of. For simplicity's sake and peace of mind, we decided to grab the two values directly for each cocktails rather than having to wait another 9 hours of scraping because of a mistake in the if-statement. 
+
+______________________________
+
+Cleaning:
+
+The first part of this process is to combine the 
